@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-// В ПРОЦЕССЕ
+
 namespace Lab1
 {
     class Programm
@@ -50,6 +48,15 @@ namespace Lab1
                 }
 
                 time += minBuyerTime;
+
+                for (int j = 0; j < n; j++)
+                {
+                    if (threadsPool[j] == 0 && check < customers.Length)
+                    {
+                        threadsPool[j] = customers[check];
+                        check++;
+                    }
+                }
             }
 
             if (customers.Length < n)
@@ -57,7 +64,17 @@ namespace Lab1
                 n = customers.Length;
             }
 
-            return time;
+            int max = 0;
+
+            for (int j = 0; j < n; j++)
+            {
+                if (threadsPool[j] > max)
+                {
+                    max = threadsPool[j];
+                }
+            }
+
+            return time + max;
         }
     }
 }
